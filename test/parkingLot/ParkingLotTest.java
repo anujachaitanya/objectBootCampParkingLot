@@ -6,15 +6,15 @@ import static org.junit.Assert.*;
 
 public class ParkingLotTest {
     @Test
-    public void shouldParkCarInEmptyParkingSpace() {
+    public void shouldParkCarInEmptyParkingSpace() throws SpaceNotAvailableException {
         ParkingLot parkingLot = new ParkingLot(20);
-        assertTrue(parkingLot.park());
+        assertEquals(1, parkingLot.park());
     }
 
     @Test
     public void shouldNotParkCarWhenParkingLotIsFull() {
         ParkingLot parkingLot = new ParkingLot(0);
-        assertFalse(parkingLot.park());
+        assertThrows(SpaceNotAvailableException.class, parkingLot::park);
     }
 
     @Test

@@ -2,6 +2,7 @@ package parkingLot;
 
 import parkingLot.Space.Space;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class ParkingLot {
@@ -15,13 +16,12 @@ public class ParkingLot {
         this.occupiedSpaces = 0;
     }
 
-    public boolean park() {
+    public int park() throws SpaceNotAvailableException {
         if (this.isFull()) {
-            return false;
+            throw new SpaceNotAvailableException();
         }
-        this.parkingSpaces[occupiedSpaces] = Space.OCCUPIED;
-        this.occupiedSpaces++;
-        return true;
+        this.parkingSpaces[occupiedSpaces++] = Space.OCCUPIED;
+        return this.occupiedSpaces;
     }
 
     public boolean isFull() {

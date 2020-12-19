@@ -2,7 +2,6 @@ package parkingLot;
 
 import parkingLot.Space.Space;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 
 public class ParkingLot {

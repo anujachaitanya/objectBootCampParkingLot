@@ -1,19 +1,21 @@
 package parkingLot;
 
+
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class Assistant {
-    public Assistant() {
+    private ArrayList<ParkingLot> parkingLots;
 
+    public Assistant(ArrayList<ParkingLot> parkingLots) {
+        this.parkingLots = parkingLots;
     }
 
-    public HashMap<ParkingLot, ParkingLotStatus> updateDisplay(ArrayList<ParkingLot> parkingLots) {
-        HashMap<ParkingLot, ParkingLotStatus> parkingLotStatus = new HashMap<>();
-        for (ParkingLot parkingLot : parkingLots) {
-            ParkingLotStatus status = parkingLot.isFull() ? ParkingLotStatus.FULL : ParkingLotStatus.AVAILABLE;
-            parkingLotStatus.put(parkingLot, status);
+    public ArrayList<ParkingLotRecord> monitorLots() {
+        ArrayList<ParkingLotRecord> parkingLotRecords = new ArrayList<>();
+        for (ParkingLot parkingLot : this.parkingLots) {
+            parkingLotRecords.add(parkingLot.generateRecord());
         }
-        return parkingLotStatus;
+        return parkingLotRecords;
     }
+
 }

@@ -15,15 +15,23 @@ public class ParkingLot {
         this.occupiedSpaces = 0;
     }
 
-    public int park() throws SpaceNotAvailableException {
+    public ParkingLotStatus park() {
         if (this.isFull()) {
-            throw new SpaceNotAvailableException();
+            return ParkingLotStatus.FULL;
         }
         this.parkingSpaces[occupiedSpaces++] = Space.OCCUPIED;
-        return this.occupiedSpaces;
+        return this.getLotStatus();
+    }
+
+    private ParkingLotStatus getLotStatus() {
+        return this.isFull() ? ParkingLotStatus.FULL : ParkingLotStatus.AVAILABLE;
     }
 
     public boolean isFull() {
         return occupiedSpaces == this.parkingSpaces.length;
+    }
+
+    public ParkingLotRecord generateRecord() {
+        return new ParkingLotRecord(this.parkingSpaces.length-this.occupiedSpaces, this.getLotStatus());
     }
 }

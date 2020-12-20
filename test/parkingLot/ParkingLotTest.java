@@ -8,13 +8,13 @@ public class ParkingLotTest {
     @Test
     public void shouldParkCarInEmptyParkingSpace() throws SpaceNotAvailableException {
         ParkingLot parkingLot = new ParkingLot(20);
-        assertEquals(1, parkingLot.park());
+        assertEquals(ParkingLotStatus.AVAILABLE, parkingLot.park());
     }
 
     @Test
     public void shouldNotParkCarWhenParkingLotIsFull() {
         ParkingLot parkingLot = new ParkingLot(0);
-        assertThrows(SpaceNotAvailableException.class, parkingLot::park);
+        assertEquals(ParkingLotStatus.FULL, parkingLot.park());
     }
 
     @Test

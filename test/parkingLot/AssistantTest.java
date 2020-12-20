@@ -12,7 +12,7 @@ import static org.junit.Assert.*;
 public class AssistantTest {
     @Test
     public void shouldMonitorAvailableParkingLots() {
-        ArrayList<Recordable> parkingLots = new ArrayList<>();
+        ArrayList<ParkingLot> parkingLots = new ArrayList<>();
         ParkingLot parkingLot = new ParkingLot(1);
         parkingLots.add(parkingLot);
 
@@ -25,7 +25,7 @@ public class AssistantTest {
 
     @Test
     public void shouldMonitorFullParkingLots() {
-        ArrayList<Recordable> parkingLots = new ArrayList<>();
+        ArrayList<ParkingLot> parkingLots = new ArrayList<>();
         parkingLots.add(new ParkingLot(0));
 
         Assistant assistant = new Assistant(parkingLots);

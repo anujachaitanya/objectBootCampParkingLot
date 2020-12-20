@@ -1,10 +1,12 @@
-package parkingLot;
+package parkingLot.lot;
 
+import parkingLot.Recordable;
 import parkingLot.Space.Space;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
-public class ParkingLot {
+public class ParkingLot implements Recordable {
 
     private final Space[] parkingSpaces;
     private int occupiedSpaces;
@@ -31,6 +33,7 @@ public class ParkingLot {
         return occupiedSpaces == this.parkingSpaces.length;
     }
 
+    @Override
     public ParkingLotRecord generateRecord() {
         return new ParkingLotRecord(this.parkingSpaces.length-this.occupiedSpaces, this.getLotStatus());
     }

@@ -1,4 +1,4 @@
-package parkingLot;
+package parkingLot.lot;
 
 import java.util.Objects;
 
@@ -18,6 +18,14 @@ public class ParkingLotRecord {
         ParkingLotRecord that = (ParkingLotRecord) o;
         return availableSlots == that.availableSlots &&
             lotStatus == that.lotStatus;
+    }
+
+    @Override
+    public String toString() {
+        return "ParkingLotRecord{" +
+                "availableSlots=" + availableSlots +
+                ", lotStatus=" + lotStatus +
+                '}';
     }
 
     @Override

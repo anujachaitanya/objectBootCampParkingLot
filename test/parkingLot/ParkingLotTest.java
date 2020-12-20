@@ -1,12 +1,14 @@
 package parkingLot;
 
 import org.junit.Test;
+import parkingLot.lot.ParkingLot;
+import parkingLot.lot.ParkingLotStatus;
 
 import static org.junit.Assert.*;
 
 public class ParkingLotTest {
     @Test
-    public void shouldParkCarInEmptyParkingSpace() throws SpaceNotAvailableException {
+    public void shouldParkCarInEmptyParkingSpace()  {
         ParkingLot parkingLot = new ParkingLot(20);
         assertEquals(ParkingLotStatus.AVAILABLE, parkingLot.park());
     }

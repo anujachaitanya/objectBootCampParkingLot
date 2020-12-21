@@ -1,5 +1,6 @@
 package parkingLot.lot;
 
+import parkingLot.Assistant;
 import parkingLot.Space.Space;
 
 import java.util.Arrays;
@@ -8,6 +9,7 @@ public class ParkingLot {
 
     private final Space[] parkingSpaces;
     private int occupiedSpaces;
+    private Assistant assistant;
 
     public ParkingLot(int capacity) {
         this.parkingSpaces = new Space[capacity];
@@ -15,12 +17,19 @@ public class ParkingLot {
         this.occupiedSpaces = 0;
     }
 
-    public ParkingLotStatus park() {
+    public void assignAssistant(Assistant assistant) {
+        this.assistant = assistant;
+    }
+
+    public boolean park() {
         if (this.isFull()) {
-            return ParkingLotStatus.FULL;
+            return false;
         }
         this.parkingSpaces[occupiedSpaces++] = Space.OCCUPIED;
-        return this.getLotStatus();
+        if(this.assistant != null) {
+            this.assistant.update(this.hashCode(), this.generateRecord());
+        }
+        return true;
     }
 
     private ParkingLotStatus getLotStatus() {

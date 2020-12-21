@@ -5,18 +5,20 @@ import parkingLot.lot.ParkingLot;
 import parkingLot.lot.ParkingLotStatus;
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 
 public class ParkingLotTest {
     @Test
     public void shouldParkCarInEmptyParkingSpace()  {
         ParkingLot parkingLot = new ParkingLot(20);
-        assertEquals(ParkingLotStatus.AVAILABLE, parkingLot.park());
+        assertTrue(parkingLot.park());
     }
 
     @Test
     public void shouldNotParkCarWhenParkingLotIsFull() {
         ParkingLot parkingLot = new ParkingLot(0);
-        assertEquals(ParkingLotStatus.FULL, parkingLot.park());
+        assertFalse(parkingLot.park());
     }
 
     @Test
@@ -29,5 +31,14 @@ public class ParkingLotTest {
     public void shouldValidateIfParkingLotIsNotFull() {
         ParkingLot parkingLot = new ParkingLot(1);
         assertFalse(parkingLot.isFull());
+    }
+
+    @Test
+    public void shouldUpdateTheAssistantWhenParked() {
+        Assistant assistant = mock(Assistant.class);
+        ParkingLot parkingLot = new ParkingLot(1);
+        parkingLot.assignAssistant(assistant);
+        parkingLot.park();
+        verify(assistant).update(parkingLot.hashCode(), parkingLot.generateRecord());
     }
 }

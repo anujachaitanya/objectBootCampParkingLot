@@ -1,23 +1,25 @@
 package parkingLot;
 
 
-import parkingLot.lot.ParkingLot;
 import parkingLot.lot.ParkingLotRecord;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Assistant {
-    private ArrayList<ParkingLot> parkingLots;
+    private final HashMap<Integer, ParkingLotRecord> display;
 
-    public Assistant(ArrayList<ParkingLot> parkingLots) {
-        this.parkingLots = parkingLots;
+    public Assistant() {
+        this.display = new HashMap<>();
     }
 
-    public ArrayList<ParkingLotRecord> monitorLots() {
-        ArrayList<ParkingLotRecord> parkingLotRecords = new ArrayList<>();
-        for (ParkingLot parkingLot : this.parkingLots) {
-            parkingLotRecords.add(parkingLot.generateRecord());
-        }
-        return parkingLotRecords;
+    public void update(int lotId, ParkingLotRecord record) {
+        this.display.put(lotId, record);
+    }
+
+    @Override
+    public String toString() {
+        return "Assistant{" +
+                "display=" + display +
+                '}';
     }
 }

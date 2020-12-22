@@ -2,25 +2,21 @@ package parkingLot.lot;
 
 import parkingLot.ParkingLotListener;
 
-public class ParkingLot {
+import java.util.HashMap;
 
+public class ParkingLot {
     private final int capacity;
     private int occupiedSpaces;
-    private ParkingLotListener listener;
-    private ParkingLotListener manager;
-
+    private final HashMap<ParkingLotListener, Integer> listener;
 
     public ParkingLot(int capacity) {
         this.capacity = capacity;
         this.occupiedSpaces = 0;
+        this.listener = new HashMap<>();
     }
 
-    public void assignListener(ParkingLotListener lotListener) {
-        this.listener = lotListener;
-    }
-
-    public void assignManager(ParkingLotListener manager) {
-        this.manager = manager;
+    public void addListener(ParkingLotListener lotListener, int threshold) {
+        this.listener.put(lotListener, threshold);
     }
 
     public boolean park() {
@@ -28,30 +24,24 @@ public class ParkingLot {
             return false;
         }
         this.occupiedSpaces++;
-
-        if(this.hasManager() && this.isEightyPercentFull()) {
-            this.manager.listen(this.hashCode());
-        }
-
-        if(hasListener() && this.isFull()) {
-            this.listener.listen(this.hashCode());
-        }
+        this.informListeners();
         return true;
     }
 
-    private boolean hasListener() {
-        return this.listener != null;
+    private void informListeners() {
+        this.listener.forEach((parkingLotListener, threshold) -> {
+            if(hasPassesThreshold(threshold)){
+                parkingLotListener.listen(this.hashCode(), threshold);
+            }
+        });
     }
 
-    private boolean hasManager() {
-        return this.manager != null;
-    }
-
-    private boolean isEightyPercentFull() {
-        return ((80 * this.capacity)  / 100) <= occupiedSpaces;
+    private boolean hasPassesThreshold(Integer threshold) {
+        return ((threshold * this.capacity)  / 100) <= occupiedSpaces;
     }
 
     public boolean isFull() {
         return occupiedSpaces == this.capacity;
     }
+
 }

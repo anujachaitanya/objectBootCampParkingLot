@@ -36,20 +36,20 @@ public class ParkingLotTest {
     public void shouldUpdateTheAssistantWhenParked() {
         Assistant assistant = mock(Assistant.class);
         ParkingLot parkingLot = new ParkingLot(1);
-        parkingLot.assignListener(assistant);
+        parkingLot.addListener(assistant,100);
         parkingLot.park();
-        verify(assistant).listen(parkingLot.hashCode());
+        verify(assistant).listen(parkingLot.hashCode(),100);
     }
 
     @Test
     public void shouldUpdateManagerWhenLotIs80PercentFull() {
-        Manager manager = mock(Manager.class);
+        ParkingLotListener manager = mock(ParkingLotListener.class);
         ParkingLot parkingLot = new ParkingLot(5);
-        parkingLot.assignManager(manager);
+        parkingLot.addListener(manager, 80);
         parkingLot.park();
         parkingLot.park();
         parkingLot.park();
         parkingLot.park();
-        verify(manager).listen(parkingLot.hashCode());
+        verify(manager).listen(parkingLot.hashCode(), 80);
     }
 }

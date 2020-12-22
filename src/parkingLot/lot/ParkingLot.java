@@ -7,13 +7,13 @@ import java.util.Arrays;
 
 public class ParkingLot {
 
-    private final Space[] parkingSpaces;
+    private final int capacity;
     private int occupiedSpaces;
     private Assistant assistant;
 
+
     public ParkingLot(int capacity) {
-        this.parkingSpaces = new Space[capacity];
-        Arrays.fill(parkingSpaces, Space.EMPTY);
+        this.capacity = capacity;
         this.occupiedSpaces = 0;
     }
 
@@ -25,7 +25,7 @@ public class ParkingLot {
         if (this.isFull()) {
             return false;
         }
-        this.parkingSpaces[occupiedSpaces++] = Space.OCCUPIED;
+        this.occupiedSpaces++;
         if(this.assistant != null) {
             this.assistant.update(this.hashCode(), this.generateRecord());
         }
@@ -37,10 +37,10 @@ public class ParkingLot {
     }
 
     public boolean isFull() {
-        return occupiedSpaces == this.parkingSpaces.length;
+        return occupiedSpaces == this.capacity;
     }
 
     public ParkingLotRecord generateRecord() {
-        return new ParkingLotRecord(this.parkingSpaces.length-this.occupiedSpaces, this.getLotStatus());
+        return new ParkingLotRecord(this.capacity -this.occupiedSpaces, this.getLotStatus());
     }
 }

@@ -2,7 +2,6 @@ package parkingLot;
 
 import org.junit.Test;
 import parkingLot.lot.ParkingLot;
-import parkingLot.lot.ParkingLotStatus;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
@@ -37,8 +36,20 @@ public class ParkingLotTest {
     public void shouldUpdateTheAssistantWhenParked() {
         Assistant assistant = mock(Assistant.class);
         ParkingLot parkingLot = new ParkingLot(1);
-        parkingLot.assignAssistant(assistant);
+        parkingLot.assignListener(assistant);
         parkingLot.park();
-        verify(assistant).update(parkingLot.hashCode(), parkingLot.generateRecord());
+        verify(assistant).listen(parkingLot.hashCode());
+    }
+
+    @Test
+    public void shouldUpdateManagerWhenLotIs80PercentFull() {
+        Manager manager = mock(Manager.class);
+        ParkingLot parkingLot = new ParkingLot(5);
+        parkingLot.assignManager(manager);
+        parkingLot.park();
+        parkingLot.park();
+        parkingLot.park();
+        parkingLot.park();
+        verify(manager).listen(parkingLot.hashCode());
     }
 }

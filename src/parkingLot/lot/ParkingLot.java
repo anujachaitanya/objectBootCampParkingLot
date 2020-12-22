@@ -1,15 +1,13 @@
 package parkingLot.lot;
 
-import parkingLot.Assistant;
-import parkingLot.Space.Space;
-
-import java.util.Arrays;
+import parkingLot.ParkingLotListener;
 
 public class ParkingLot {
 
     private final int capacity;
     private int occupiedSpaces;
-    private Assistant assistant;
+    private ParkingLotListener listener;
+    private ParkingLotListener manager;
 
 
     public ParkingLot(int capacity) {
@@ -17,8 +15,12 @@ public class ParkingLot {
         this.occupiedSpaces = 0;
     }
 
-    public void assignAssistant(Assistant assistant) {
-        this.assistant = assistant;
+    public void assignListener(ParkingLotListener lotListener) {
+        this.listener = lotListener;
+    }
+
+    public void assignManager(ParkingLotListener manager) {
+        this.manager = manager;
     }
 
     public boolean park() {
@@ -26,21 +28,30 @@ public class ParkingLot {
             return false;
         }
         this.occupiedSpaces++;
-        if(this.assistant != null) {
-            this.assistant.update(this.hashCode(), this.generateRecord());
+
+        if(this.hasManager() && this.isEightyPercentFull()) {
+            this.manager.listen(this.hashCode());
+        }
+
+        if(hasListener() && this.isFull()) {
+            this.listener.listen(this.hashCode());
         }
         return true;
     }
 
-    private ParkingLotStatus getLotStatus() {
-        return this.isFull() ? ParkingLotStatus.FULL : ParkingLotStatus.AVAILABLE;
+    private boolean hasListener() {
+        return this.listener != null;
+    }
+
+    private boolean hasManager() {
+        return this.manager != null;
+    }
+
+    private boolean isEightyPercentFull() {
+        return ((80 * this.capacity)  / 100) <= occupiedSpaces;
     }
 
     public boolean isFull() {
         return occupiedSpaces == this.capacity;
-    }
-
-    public ParkingLotRecord generateRecord() {
-        return new ParkingLotRecord(this.capacity -this.occupiedSpaces, this.getLotStatus());
     }
 }

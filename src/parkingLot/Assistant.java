@@ -1,19 +1,20 @@
 package parkingLot;
 
 
-import parkingLot.lot.ParkingLotRecord;
+import parkingLot.lot.ParkingLotStatus;
 
 import java.util.HashMap;
 
-public class Assistant {
-    private final HashMap<Integer, ParkingLotRecord> display;
+public class Assistant implements ParkingLotListener {
+    private final HashMap<Integer, ParkingLotStatus> display;
 
     public Assistant() {
         this.display = new HashMap<>();
     }
 
-    public void update(int lotId, ParkingLotRecord record) {
-        this.display.put(lotId, record);
+    @Override
+    public void listen(int lotId) {
+        this.display.put(lotId, ParkingLotStatus.FULL);
     }
 
     @Override

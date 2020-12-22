@@ -11,7 +11,6 @@ public class AssistantTest {
     public void shouldUpdateDisplayWithGivenRecords() {
         Assistant assistant = new Assistant();
         ParkingLotRecord record = new ParkingLotRecord(1, ParkingLotStatus.AVAILABLE);
-        assistant.update(1, record);
-        assertEquals("Assistant{display={1=ParkingLotRecord{availableSlots=1, lotStatus=AVAILABLE}}}", assistant.toString());
+        assistant.listen(1);
     }
 }

@@ -53,4 +53,13 @@ public class ParkingLotTest {
         parkingLot.park();
         verify(manager).notify(1, ParkingLotStatus.ALMOST_FULL);
     }
+
+    @Test
+    public void shouldUpdateAttendantWhenLotIs20PercentOrLess() {
+        ParkingLotListener manager = mock(ParkingLotListener.class);
+        ParkingLot parkingLot = new ParkingLot(1, 5);
+        parkingLot.addListener(manager, ParkingLotStatus.OCCUPIED_LESS_THAN_TWENTY_PERCENT);
+        parkingLot.park();
+        verify(manager).notify(1, ParkingLotStatus.OCCUPIED_LESS_THAN_TWENTY_PERCENT);
+    }
 }

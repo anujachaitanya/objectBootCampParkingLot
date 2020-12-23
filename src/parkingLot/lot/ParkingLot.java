@@ -47,12 +47,15 @@ public class ParkingLot {
         if(isFull()){
             return ParkingLotStatus.FULL;
         }
+
         if(hasPassesThreshold(80)){
             return ParkingLotStatus.ALMOST_FULL;
         }
+
         if(isInRange(20)){
             return ParkingLotStatus.OCCUPIED_LESS_THAN_TWENTY_PERCENT;
         }
+
         return ParkingLotStatus.AVAILABLE;
     }
 

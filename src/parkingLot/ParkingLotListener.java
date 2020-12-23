@@ -1,5 +1,7 @@
 package parkingLot;
 
+import parkingLot.lot.ParkingLotStatus;
+
 public interface ParkingLotListener {
-    void listen(int lotId, int threshold );
+    void notify(int lotId, ParkingLotStatus threshold );
 }

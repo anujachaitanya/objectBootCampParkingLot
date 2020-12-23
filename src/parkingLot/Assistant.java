@@ -13,7 +13,7 @@ public class Assistant implements ParkingLotListener {
     }
 
     @Override
-    public void listen(int lotId, int threshold) {
+    public void notify(int lotId, ParkingLotStatus threshold) {
         this.display.put(lotId, ParkingLotStatus.FULL);
     }
 

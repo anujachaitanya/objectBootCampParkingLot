@@ -2,6 +2,7 @@ package parkingLot;
 
 import org.junit.Test;
 import parkingLot.lot.ParkingLot;
+import parkingLot.lot.ParkingLotStatus;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
@@ -36,20 +37,20 @@ public class ParkingLotTest {
     public void shouldUpdateTheAssistantWhenParked() {
         Assistant assistant = mock(Assistant.class);
         ParkingLot parkingLot = new ParkingLot(1, 1);
-        parkingLot.addListener(assistant,100);
+        parkingLot.addListener(assistant, ParkingLotStatus.FULL);
         parkingLot.park();
-        verify(assistant).listen(1,100);
+        verify(assistant).notify(1,ParkingLotStatus.FULL);
     }
 
     @Test
     public void shouldUpdateManagerWhenLotIs80PercentFull() {
         ParkingLotListener manager = mock(ParkingLotListener.class);
         ParkingLot parkingLot = new ParkingLot(1, 5);
-        parkingLot.addListener(manager, 80);
+        parkingLot.addListener(manager, ParkingLotStatus.ALMOST_FULL);
         parkingLot.park();
         parkingLot.park();
         parkingLot.park();
         parkingLot.park();
-        verify(manager).listen(1, 80);
+        verify(manager).notify(1, ParkingLotStatus.ALMOST_FULL);
     }
 }
